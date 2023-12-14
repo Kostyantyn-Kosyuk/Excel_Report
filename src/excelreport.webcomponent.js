@@ -10,7 +10,8 @@ import { getContextMenuItems } from './contextMenu.js';
 import {
 	MyCustomPlugin,
 	MyCustomPluginTranslations
-} from './utils/formulas/index.js';
+} from './utils/formulas.js';
+import { GudhubFunctionsWorker } from './utils/gudhubFunctionsWorker/GudhubFunctionsWorker.js';
 
 const data = [
 	['Оренда', 1, 4, 5, 3, '=GREET(A1, A2)'],
@@ -26,13 +27,13 @@ class GhExcelReport extends GhHtmlElement {
 		super();
 		this.container;
 		this.table;
+		this.gudhubFunctionsWorker;
 	}
 
 	onInit() {
 		super.render(html);
 		this.container = this.querySelector('.excel-table');
 		this.initializeHandsontable();
-		this.gudhubFunctionsWorker = new GudhubFunctionsWorker();
 	}
 
 	disconnectedCallback() {}
@@ -55,10 +56,14 @@ class GhExcelReport extends GhHtmlElement {
 				sheetId: 1,
 				sheetName: 'Sheet 1'
 			},
-			editor: 'customEditor' // Use the custom editor for all cells
+			editor: 'customEditor'
 		};
 
 		this.table = new Handsontable(this.container, settings);
+		this.gudhubFunctionsWorker = new GudhubFunctionsWorker(
+			this.table,
+			this.scope
+		);
 	}
 }
 

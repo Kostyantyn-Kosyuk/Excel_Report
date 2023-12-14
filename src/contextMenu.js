@@ -9,8 +9,11 @@ export function getContextMenuItems(instance) {
 							key: 'insertFunction:1',
 							name: '1',
 							callback(key, selection) {
-								const coords = getCellCoords(selection);
-								// викликати фанкшн воркера
+								const cellCoords = getCellCoords(selection);
+								instance.gudhubFunctionsWorker.setFunction(
+									key.split(':')[1],
+									cellCoords
+								);
 							}
 						}
 					]
