@@ -7,7 +7,6 @@ export class MyCustomPlugin extends FunctionPlugin {
 			state,
 			this.metadata('GREET'),
 			(...rest) => {
-
 				return rest.join(', ');
 			}
 		);

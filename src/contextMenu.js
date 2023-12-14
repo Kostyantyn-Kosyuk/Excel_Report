@@ -18,6 +18,15 @@ export function getContextMenuItems(instance) {
 						}
 					]
 				}
+			},
+			deleteFunction: {
+				name: 'Delete function...',
+				callback(key, selection) {
+					const cellCoords = getCellCoords(selection);
+					instance.gudhubFunctionsWorker.deleteFunction(
+						cellCoords
+					);
+				}
 			}
 		}
 	};

@@ -11,12 +11,12 @@ import {
 	MyCustomPlugin,
 	MyCustomPluginTranslations
 } from './utils/formulas.js';
-import { GudhubFunctionsWorker } from './utils/gudhubFunctionsWorker/GudhubFunctionsWorker.js';
+import GudhubFunctionsWorker from './utils/gudhubFunctionsWorker/GudhubFunctionsWorker.js';
 
 const data = [
-	['Оренда', 1, 4, 5, 3, '=GREET(A1, A2)'],
+	['Оренда', 1, 4, 5, 3, ''],
 	['Податки', 2, 3, 8, 5, ''],
-	['Канцелярія', 7, 6, 5, 7, '=SUM(B2,B3)'],
+	['Канцелярія', 7, 6, 5, 7, ''],
 	['Інше', 8, 9, 4, 3, ''],
 	['Доставка', 6, 6, 4, 5, ''],
 	['Медіа', 1, 3, 1, 2, '']
