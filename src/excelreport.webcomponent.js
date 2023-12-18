@@ -34,7 +34,7 @@ class GhExcelReport extends GhHtmlElement {
 
 	onInit() {
 		super.render(html);
-		this.container = this.querySelector('.excel-table');
+		this.container = this.querySelector('.report-table');
 		this.initializeHandsontable();
 		this.controller = new Controller(this.scope, this.table);
 	}
