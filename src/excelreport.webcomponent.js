@@ -38,8 +38,6 @@ class GhExcelReport extends GhHtmlElement {
 		this.container = this.querySelector('.report-table');
 		this.initializeHandsontable();
 		this.controller = new Controller(this.scope, this.table);
-
-		resizeElements.subscribe();
 	}
 
 	disconnectedCallback() {
@@ -68,6 +66,7 @@ class GhExcelReport extends GhHtmlElement {
 		};
 
 		this.table = new Handsontable(this.container, settings);
+		resizeElements.subscribe(this.table);
 	}
 }
 

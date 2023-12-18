@@ -1,37 +1,36 @@
-function setMaxHeight(id) {
-    var element = document.getElementById(id);
+function setMaxHeight(table) {
+    var element = table.rootElement;
     var elementRect = element.getBoundingClientRect();
     var maxHeight = window.innerHeight - elementRect.top;
 
-    element.style.maxHeight = maxHeight - 20 + 'px';
+    table.updateSettings({height: maxHeight - 20});
 }
 
-function setMaxWidth(id) {
-    var element = document.getElementById(id);
+function setMaxWidth(table) {
+    var element = table.rootElement;
     var elementRect = element.getBoundingClientRect();
+    console.log(elementRect);
     var maxWidth = window.innerWidth - elementRect.left;
 
-    element.style.maxWidth = maxWidth - 20 + 'px';
+    table.updateSettings({width: maxWidth - 20});
 }
 
-function onWindowResize () {
-    const elementsIdsToSetHeigth = ['report-table'];
-    const elementsIdsToSetWidth = ['report-table'];
-    elementsIdsToSetHeigth.forEach(id => {
-        setMaxHeight(id);
-    });
-    elementsIdsToSetWidth.forEach(id => {
-        setMaxWidth(id);
-    });
+function onWindowResize(table) {
+    setMaxHeight(table);
+    setMaxWidth(table);
 };
 
+function createCallback(table) {
+    const callback = () => onWindowResize(table);
+    return callback;
+}
+
 const resizeElements = {
-    subscribe() {
-        onWindowResize();
-        window.addEventListener('resize', onWindowResize);
+    subscribe(table) {
+        window.addEventListener('resize', createCallback(table));
     },
     destroy() {
-        window.removeEventListener('resize', onWindowResize);
+        window.removeEventListener('resize', createCallback);
     },
 };
 export default resizeElements;
