@@ -27,7 +27,7 @@ export default class GudhubFunctionsWorker {
 				cellCoords.col,
 				'gudhubFunctionAssigned calculated'
 			);
-			this.setData(cellCoords, data.length);
+			this.setData(cellCoords, data);
 		});
 	}
 
