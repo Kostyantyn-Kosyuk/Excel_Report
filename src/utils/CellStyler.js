@@ -9,8 +9,6 @@ export default class CellStyler {
 	}
 
 	removeCellClass(row, col) {
-		console.log(row);
-		console.log(col);
 		this.table.removeCellMeta(row, col, 'className');
 	}
 }
