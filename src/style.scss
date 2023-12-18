@@ -10,6 +10,10 @@ gh-excel-report {
 		font-size: inherit;
 
 		td {
+			&.customClassRed {
+				background-color: pink;
+			}
+
 			&.customClass {
 				position: relative;
 				padding-right: 10px;

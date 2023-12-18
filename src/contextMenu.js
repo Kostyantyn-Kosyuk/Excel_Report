@@ -10,10 +10,7 @@ export function getContextMenuItems(instance) {
 							name: '1',
 							callback(key, selection) {
 								const cellCoords = getCellCoords(selection);
-								instance.gudhubFunctionsWorker.setFunction(
-									key.split(':')[1],
-									cellCoords
-								);
+								instance.controller.setFunction(cellCoords, key);
 							}
 						}
 					]
@@ -23,9 +20,7 @@ export function getContextMenuItems(instance) {
 				name: 'Delete function...',
 				callback(key, selection) {
 					const cellCoords = getCellCoords(selection);
-					instance.gudhubFunctionsWorker.deleteFunction(
-						cellCoords
-					);
+					instance.controller.deleteFunction(cellCoords);
 				}
 			}
 		}

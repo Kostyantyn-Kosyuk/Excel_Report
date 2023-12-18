@@ -11,7 +11,8 @@ import {
 	MyCustomPlugin,
 	MyCustomPluginTranslations
 } from './utils/formulas.js';
-import GudhubFunctionsWorker from './utils/gudhubFunctionsWorker/GudhubFunctionsWorker.js';
+
+import Controller from './Controller.js';
 
 const data = [
 	['Оренда', 1, 4, 5, 3, ''],
@@ -27,6 +28,7 @@ class GhExcelReport extends GhHtmlElement {
 		super();
 		this.container;
 		this.table;
+		this.controller;
 		this.gudhubFunctionsWorker;
 	}
 
@@ -34,6 +36,7 @@ class GhExcelReport extends GhHtmlElement {
 		super.render(html);
 		this.container = this.querySelector('.excel-table');
 		this.initializeHandsontable();
+		this.controller = new Controller(this.scope, this.table);
 	}
 
 	disconnectedCallback() {}
@@ -56,14 +59,10 @@ class GhExcelReport extends GhHtmlElement {
 				sheetId: 1,
 				sheetName: 'Sheet 1'
 			},
-			editor: 'customEditor'
+			editor: 'customEditor',
 		};
 
 		this.table = new Handsontable(this.container, settings);
-		this.gudhubFunctionsWorker = new GudhubFunctionsWorker(
-			this.table,
-			this.scope
-		);
 	}
 }
 
