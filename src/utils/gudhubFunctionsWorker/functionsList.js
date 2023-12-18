@@ -1,17 +1,17 @@
 const functionList = {
 	1: async function () {
 		const app_id = 34049;
-		const items = gudhub.getItems(app_id);
-		
-		const result = (await items).length;
+		const items = await gudhub.getItems(app_id);
+
+		const result = items.length;
 
 		return result;
 	},
 	2: async function () {
 		const app_id = 34049;
-		const items = gudhub.getItems(app_id);
+		const items = await gudhub.getItems(app_id);
 
-		const result = (await items).length * 2;
+		const result = items.length * 2;
 
 		return result;
 	}

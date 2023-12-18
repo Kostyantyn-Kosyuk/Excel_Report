@@ -1,4 +1,4 @@
-import functionList from "./utils/gudhubFunctionsWorker/functionsList.js";
+import functionList from './utils/gudhubFunctionsWorker/functionsList.js';
 
 export function getContextMenuItems(instance) {
 	return {
@@ -7,16 +7,13 @@ export function getContextMenuItems(instance) {
 				name: 'Insert function...',
 				submenu: {
 					items: Object.keys(functionList).map((key) => ({
-							key: `insertFunction:${key}`,
-							name: key,
-							callback(key, selection) {
-								const cellCoords = getCellCoords(selection);
-								instance.controller.setFunction(
-									cellCoords,
-									key
-								);
-							}
-					})),
+						key: `insertFunction:${key}`,
+						name: key,
+						callback(key, selection) {
+							const cellCoords = getCellCoords(selection);
+							instance.controller.setFunction(cellCoords, key);
+						}
+					}))
 				}
 			},
 			deleteFunction: {
