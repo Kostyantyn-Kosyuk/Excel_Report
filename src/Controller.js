@@ -25,10 +25,12 @@ export default class Controller {
 	}
 
 	async deleteFunction(cellCoords) {
-		this.gudhubFunctionsWorker.deleteFunction(cellCoords);
-
 		const isDeleted =
 			await this.documentStorage.deleteCellFunction(cellCoords);
+
+		if (isDeleted) {
+			this.gudhubFunctionsWorker.deleteFunction(cellCoords);
+		}
 		return isDeleted;
 	}
 
