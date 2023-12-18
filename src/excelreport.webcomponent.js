@@ -12,6 +12,7 @@ import {
 	MyCustomPluginTranslations
 } from './utils/formulas.js';
 
+import resizeElements from './utils/resizeComponent.js';
 import Controller from './Controller.js';
 
 const data = [
@@ -37,9 +38,13 @@ class GhExcelReport extends GhHtmlElement {
 		this.container = this.querySelector('.report-table');
 		this.initializeHandsontable();
 		this.controller = new Controller(this.scope, this.table);
+
+		resizeElements.subscribe();
 	}
 
-	disconnectedCallback() {}
+	disconnectedCallback() {
+		resizeElements.destroy();
+	}
 
 	initializeHandsontable() {
 		Handsontable.editors.registerEditor('customEditor', CustomEditor);

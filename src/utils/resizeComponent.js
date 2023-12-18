@@ -1,6 +1,3 @@
-import { dragListScrollId } from '../components/lessonDragList/lessonDragListLayout.js';
-import { scheduleScrollId } from '../studyschedule.webcomponent.js';
-
 function setMaxHeight(id) {
     var element = document.getElementById(id);
     var elementRect = element.getBoundingClientRect();
@@ -18,12 +15,12 @@ function setMaxWidth(id) {
 }
 
 function onWindowResize () {
-    const elementsToSetHeigth = [dragListScrollId, scheduleScrollId];
-    const elementsToSetWidth = [scheduleScrollId];
-    elementsToSetHeigth.forEach(id => {
+    const elementsIdsToSetHeigth = ['report-table'];
+    const elementsIdsToSetWidth = ['report-table'];
+    elementsIdsToSetHeigth.forEach(id => {
         setMaxHeight(id);
     });
-    elementsToSetWidth.forEach(id => {
+    elementsIdsToSetWidth.forEach(id => {
         setMaxWidth(id);
     });
 };
