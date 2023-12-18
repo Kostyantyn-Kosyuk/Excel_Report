@@ -10,7 +10,10 @@ export function getContextMenuItems(instance) {
 							name: '1',
 							callback(key, selection) {
 								const cellCoords = getCellCoords(selection);
-								instance.controller.setFunction(cellCoords, key);
+								instance.controller.setFunction(
+									cellCoords,
+									key
+								);
 							}
 						}
 					]

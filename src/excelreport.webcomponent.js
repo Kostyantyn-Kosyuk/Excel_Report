@@ -62,7 +62,7 @@ class GhExcelReport extends GhHtmlElement {
 				sheetId: 1,
 				sheetName: 'Sheet 1'
 			},
-			editor: 'customEditor',
+			editor: 'customEditor'
 		};
 
 		this.table = new Handsontable(this.container, settings);
