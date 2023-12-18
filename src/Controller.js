@@ -19,9 +19,7 @@ export default class Controller {
             funcKey.split(':')[1]
         );
 
-        const isSaved = await this.documentStorage.addCellFunction(cellCoords, funcKey);
-
-        return isSaved;
+        this.documentStorage.addCellFunction(cellCoords, funcKey);
     }
 
     async deleteFunction(cellCoords) {

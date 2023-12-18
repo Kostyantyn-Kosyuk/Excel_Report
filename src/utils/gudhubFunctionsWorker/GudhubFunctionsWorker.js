@@ -13,12 +13,16 @@ export default class GudhubFunctionsWorker {
         const func = functionList[key];
         if (!func) return;
 
-        this.cellStyler.setCellClass(cellCoords.row, cellCoords.col, 'customClassRed');
-        func().then(data => {
-            this.setData(cellCoords, data.length);
-        });
+        this.cellStyler.setCellClass(cellCoords.row, cellCoords.col, 'gudhubFunctionAssigned');
 
-        this.cellStyler.setCellClass(cellCoords.row, cellCoords.col, 'customClass');
+        func().then(data => {
+            const randomDelay = 1 + Math.random() * 2000;
+
+            setTimeout(() => {
+                this.cellStyler.setCellClass(cellCoords.row, cellCoords.col, 'gudhubFunctionAssigned calculated');
+                this.setData(cellCoords, data.length);
+            }, randomDelay);
+        });
     }
 
     deleteFunction(cellCoords) {

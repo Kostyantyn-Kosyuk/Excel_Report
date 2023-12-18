@@ -10,11 +10,7 @@ gh-excel-report {
 		font-size: inherit;
 
 		td {
-			&.customClassRed {
-				background-color: pink;
-			}
-
-			&.customClass {
+			&.gudhubFunctionAssigned {
 				position: relative;
 				padding-right: 10px;
 
@@ -32,6 +28,37 @@ gh-excel-report {
 					color: rgb(0, 194, 0);
 
 					text-align: center;
+				}
+
+				&::before {
+					content: '';
+
+					position: absolute;
+					top: 4px;
+					left: 5px;
+
+					@keyframes rotation {
+						0% {
+							transform: rotate(0deg);
+						}
+						100% {
+							transform: rotate(360deg);
+						}
+					}
+
+					width: 15px;
+					height: 15px;
+					border: 2px solid;
+					border-color: #0d99ff transparent;
+					border-radius: 50%;
+					display: inline-block;
+					animation: rotation 1s linear infinite;
+				}
+
+				&.calculated {
+					&::before {
+						display: none;
+					}
 				}
 			}
 		}
