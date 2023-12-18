@@ -9,7 +9,6 @@ function setMaxHeight(table) {
 function setMaxWidth(table) {
     var element = table.rootElement;
     var elementRect = element.getBoundingClientRect();
-    console.log(elementRect);
     var maxWidth = window.innerWidth - elementRect.left;
 
     table.updateSettings({width: maxWidth - 20});

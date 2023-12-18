@@ -18,10 +18,8 @@ export default class GudhubFunctionsWorker {
         func().then(data => {
             const randomDelay = 1 + Math.random() * 2000;
 
-            setTimeout(() => {
-                this.cellStyler.setCellClass(cellCoords.row, cellCoords.col, 'gudhubFunctionAssigned calculated');
-                this.setData(cellCoords, data.length);
-            }, randomDelay);
+            this.cellStyler.setCellClass(cellCoords.row, cellCoords.col, 'gudhubFunctionAssigned calculated');
+            this.setData(cellCoords, data.length);
         });
     }
 
