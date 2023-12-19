@@ -62,6 +62,7 @@ class GhExcelReport extends GhHtmlElement {
 				sheetId: 1,
 				sheetName: 'Sheet 1'
 			},
+			selectionMode: 'single',
 			editor: 'customEditor'
 		};
 
