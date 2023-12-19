@@ -1,20 +1,28 @@
-const functionList = {
-	1: async function () {
-		const app_id = 34049;
-		const items = await gudhub.getItems(app_id);
+const functionList = [
+	{
+		name: 'App: 34049. Items.length',
+		id: 'app_items_length',
+		func: async function () {
+			const app_id = 34049;
+			const items = await gudhub.getItems(app_id);
 
-		const result = items.length;
+			const result = items.length;
 
-		return result;
+			return result;
+		}
 	},
-	2: async function () {
-		const app_id = 34049;
-		const items = await gudhub.getItems(app_id);
+	{
+		name: 'App: 34049. Items.length X2',
+		id: 'app_items_length_x2',
+		func: async function () {
+			const app_id = 34049;
+			const items = await gudhub.getItems(app_id);
 
-		const result = items.length * 2;
+			const result = items.length * 2;
 
-		return result;
+			return result;
+		}
 	}
-};
+];
 
 export default functionList;

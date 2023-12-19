@@ -6,18 +6,20 @@ export function getContextMenuItems(instance) {
 			insertFunction: {
 				name: 'Insert function...',
 				submenu: {
-					items: Object.keys(functionList).map((key) => ({
-						key: `insertFunction:${key}`,
-						name: key,
-						callback(key, selection) {
-							const cellCoords = getCellCoords(selection);
-							instance.controller.setFunction(cellCoords, key);
+					items: functionList.map(({name, id}) => {
+						return {
+							key: `insertFunction:${id}`,
+							name: name,
+							callback(key, selection) {
+								const cellCoords = getCellCoords(selection);
+								instance.controller.setFunction(cellCoords, key);
+							}
 						}
-					}))
+					})
 				}
 			},
 			deleteFunction: {
-				name: 'Delete function...',
+				name: 'Delete function',
 				callback(key, selection) {
 					const cellCoords = getCellCoords(selection);
 					instance.controller.deleteFunction(cellCoords);

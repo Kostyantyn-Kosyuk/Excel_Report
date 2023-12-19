@@ -9,9 +9,10 @@ export default class GudhubFunctionsWorker {
 		this.functionList = functionList;
 	}
 
-	setFunction(cellCoords, key) {
-		const func = functionList[key];
-		if (!func) return;
+	setFunction(cellCoords, id) {
+		const foundFunctionObject = functionList.find((func) => func.id === id);
+		if (!foundFunctionObject) return;
+		const func = foundFunctionObject.func;
 
 		this.cellStyler.setCellClass(
 			cellCoords.row,

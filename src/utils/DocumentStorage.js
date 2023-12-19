@@ -28,10 +28,10 @@ export class DocumentStorage {
 		return cells;
 	}
 
-	async addCellFunction(cellCoords, funcKey) {
+	async addCellFunction(cellCoords, funcId) {
 		const newCell = {
 			cellCoords,
-			funcKey
+			funcId
 		};
 
 		this.cells.push(newCell);
