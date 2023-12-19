@@ -36,11 +36,11 @@ export default class Controller {
 
 	loadCellsFunctions(cells) {
 		cells.forEach((cell) => {
-			const { cellCoords, funcKey } = cell;
+			const { cellCoords, funcId } = cell;
 
 			this.gudhubFunctionsWorker.setFunction(
 				cellCoords,
-				funcKey.split(':')[1]
+				funcId.split(':')[1]
 			);
 		});
 	}
