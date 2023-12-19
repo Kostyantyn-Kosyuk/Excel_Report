@@ -29,12 +29,20 @@ export class DocumentStorage {
 	}
 
 	async addCellFunction(cellCoords, funcId) {
-		const newCell = {
-			cellCoords,
-			funcId
-		};
+		const { row, col } = cellCoords;
 
-		this.cells.push(newCell);
+		const cellFromStorage = this.cells.find(({cellCoords}) => row === cellCoords.row && col === cellCoords.col);
+
+		if (cellFromStorage) {
+			cellFromStorage.funcId = funcId;
+		} else {
+			const newCell = {
+				cellCoords,
+				funcId
+			};
+
+			this.cells.push(newCell);
+		}
 
 		const response = await this.saveStorage();
 		if (!response) return false;
