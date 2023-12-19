@@ -31,7 +31,9 @@ export class DocumentStorage {
 	async addCellFunction(cellCoords, funcId) {
 		const { row, col } = cellCoords;
 
-		const cellFromStorage = this.cells.find(({cellCoords}) => row === cellCoords.row && col === cellCoords.col);
+		const cellFromStorage = this.cells.find(
+			({ cellCoords }) => row === cellCoords.row && col === cellCoords.col
+		);
 
 		if (cellFromStorage) {
 			cellFromStorage.funcId = funcId;

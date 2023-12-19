@@ -6,15 +6,18 @@ export function getContextMenuItems(instance) {
 			insertFunction: {
 				name: 'Insert function...',
 				submenu: {
-					items: functionList.map(({name, id}) => {
+					items: functionList.map(({ name, id }) => {
 						return {
 							key: `insertFunction:${id}`,
 							name: name,
 							callback(key, selection) {
 								const cellCoords = getCellCoords(selection);
-								instance.controller.setFunction(cellCoords, key);
+								instance.controller.setFunction(
+									cellCoords,
+									key
+								);
 							}
-						}
+						};
 					})
 				}
 			},
