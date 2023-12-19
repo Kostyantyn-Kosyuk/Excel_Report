@@ -7,7 +7,7 @@ export default class CellStyler {
 	setCellClass(row, col, className) {
 		this.table.setCellMeta(row, col, 'className', className);
 	}
-
+	//delete all custom classes
 	removeCellClass(row, col) {
 		this.table.removeCellMeta(row, col, 'className');
 	}
