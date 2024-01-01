@@ -1,6 +1,12 @@
 import functionList from './functionsList.js';
 import CellStyler from '../CellStyler.js';
 
+import extractFuncId from '../../helpers/extractFuncId.js';
+
+export const metaKeys = {
+	func: 'func',
+};
+
 export default class GudhubFunctionsWorker {
 	constructor(scope, table) {
 		this.scope = scope;
@@ -9,38 +15,48 @@ export default class GudhubFunctionsWorker {
 		this.functionList = functionList;
 	}
 
-	setFunction(cellCoords, id) {
+	setFunction(row, col, id) {
 		const foundFunctionObject = functionList.find((func) => func.id === id);
 		if (!foundFunctionObject) return;
 		const func = foundFunctionObject.func;
 
 		this.cellStyler.setCellClass(
-			cellCoords.row,
-			cellCoords.col,
+			row,
+			col,
 			'gudhubFunctionAssigned'
 		);
 
-		func().then((data) => {
-			const randomDelay = 1 + Math.random() * 2000;
+		this.table.setCellMeta(row, col, metaKeys.func, id);
 
+		func().then((data) => {
 			this.cellStyler.setCellClass(
-				cellCoords.row,
-				cellCoords.col,
+				row,
+				col,
 				'gudhubFunctionAssigned calculated'
 			);
-			this.setData(cellCoords, data);
+			this.setData(row, col, data);
 		});
 	}
 
-	deleteFunction(cellCoords) {
-		this.setData(cellCoords, '');
-		this.cellStyler.removeCellClass(cellCoords.row, cellCoords.col);
-		this.table.render();
+	deleteFunction(row, col) {
+		this.table.removeCellMeta(row, col, metaKeys.func);
+		this.cellStyler.removeCellClass(row, col);
+		this.setData(row, col, '');
 	}
 
-	setData(cellCoords, value) {
-		const { row, col } = cellCoords;
-
+	setData(row, col, value) {
 		this.table.setDataAtCell(row, col, value);
+	}
+
+	loadFunctionsFromTable() {
+		const cellsData = this.table.getData();
+
+		cellsData.forEach((rowData, rowIndex) => 
+			rowData.forEach((cellData, colIndex) => {
+				const funcId = extractFuncId(cellData);
+				if (!funcId) return;
+				this.setFunction(rowIndex, colIndex, funcId);
+			})
+		);
 	}
 }
