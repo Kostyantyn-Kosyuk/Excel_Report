@@ -11,18 +11,10 @@ import {
 	MyCustomPlugin,
 	MyCustomPluginTranslations
 } from './utils/formulas.js';
+import CustomEditor from './CustomEditor.js';
 
 import resizeElements from './utils/resizeComponent.js';
 import Controller from './Controller.js';
-
-const data = [
-	['Оренда', 1, 4, 5, 3, ''],
-	['Податки', 2, 3, 8, 5, ''],
-	['Канцелярія', 7, 6, 5, 7, ''],
-	['Інше', 8, 9, 4, 3, ''],
-	['Доставка', 6, 6, 4, 5, ''],
-	['Медіа', 1, 3, 1, 2, '']
-];
 
 class GhExcelReport extends GhHtmlElement {
 	constructor() {
@@ -33,30 +25,44 @@ class GhExcelReport extends GhHtmlElement {
 		this.gudhubFunctionsWorker;
 	}
 
-	onInit() {
+	async onInit() {
 		super.render(html);
 		this.container = this.querySelector('.report-table');
-		this.initializeHandsontable();
-		this.controller = new Controller(this.scope, this.table);
+		this.controller = new Controller(this.scope);
+		await this.initializeHandsontable();
+		this.controller.initGudhubFunctionsWorker(this.table);
 	}
 
 	disconnectedCallback() {
 		resizeElements.destroy();
 	}
 
-	initializeHandsontable() {
+	async initializeHandsontable() {
 		Handsontable.editors.registerEditor('customEditor', CustomEditor);
 		HyperFormula.registerFunctionPlugin(
 			MyCustomPlugin,
 			MyCustomPluginTranslations
 		);
 
+		const getController = () => this.controller;
+
+		const onTableDataChange = function() {
+			const data = this.getData();
+			const metaData = this.getCellsMeta();
+			const controller = getController();
+			if (!data) return;
+			controller.saveData(data, metaData);
+		};
+
+		const data = await this.controller.getStorageData();
+
 		const settings = {
-			data: data,
+			data,
 			rowHeaders: true,
 			colHeaders: true,
 			contextMenu: getContextMenuItems(this),
 			licenseKey: 'non-commercial-and-evaluation',
+			afterChange: onTableDataChange,
 			formulas: {
 				engine: HyperFormula,
 				sheetId: 1,
@@ -68,13 +74,6 @@ class GhExcelReport extends GhHtmlElement {
 
 		this.table = new Handsontable(this.container, settings);
 		resizeElements.subscribe(this.table);
-	}
-}
-
-class CustomEditor extends Handsontable.editors.TextEditor {
-	constructor(instance, td, row, col, prop, value, cellProperties) {
-		super(instance, td, row, col, prop, value, cellProperties);
-		this.TEXTAREA.classList.add('disable-gudhub-styles');
 	}
 }
 
